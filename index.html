@@ -14,8 +14,8 @@
   <meta property="og:image" content="assets/og.jpg" />
   <link rel="icon" href="assets/favicon.ico" />
 </head>
-<body>
-  <div class="fx-bg"></div>
+<body class="v3p1">
+  <div class="fx-bg" style="--bg-url: url('assets/grid.svg');"></div>
   
   <header class="site-header">
     <div class="container nav-row">
@@ -51,16 +51,9 @@
             <li>ROI Measured</li>
           </ul>
         </div>
-        <div class="hero-diagram" aria-hidden="true">
-          <div class="node n1"></div>
-          <div class="node n2"></div>
-          <div class="node n3"></div>
-          <div class="node n4"></div>
-          <svg class="lines" viewBox="0 0 600 400" preserveAspectRatio="none">
-            <path d="M40,320 C140,280 220,180 320,160 S540,180 560,60" />
-            <path d="M60,260 C160,240 240,160 340,140 S560,160 560,300" />
-          </svg>
-        </div>
+        <picture class="hero-art" aria-hidden="true">
+          <img src="assets/hero.svg" alt="" />
+        </picture>
       </div>
     </section>
 
@@ -83,6 +76,20 @@
           <h3>Cloud‑Native MLOps</h3>
           <p>Model lifecycle, feature stores, and CI/CD for data and models — with drift detection and safe rollbacks.</p>
         </article>
+      </div>
+    </section>
+
+    <section class="deliverables section">
+      <div class="container">
+        <h2 class="section-title">What We Ship</h2>
+        <div class="deliver-grid">
+          <div class="deliver-card">RAG Services with Eval Harness</div>
+          <div class="deliver-card">Fine‑tuned Domain Models</div>
+          <div class="deliver-card">Decision Automation Workflows</div>
+          <div class="deliver-card">Feature Store + Data Contracts</div>
+          <div class="deliver-card">CI/CD for Models & Data</div>
+          <div class="deliver-card">Monitoring, Drift & Rollback</div>
+        </div>
       </div>
     </section>
 

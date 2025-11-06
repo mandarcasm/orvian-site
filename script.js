@@ -24,24 +24,29 @@ if (nav){
   nav.addEventListener('mouseleave', ()=>{ underline.style.width='0'; });
 }
 
-// contact form ajax
+// contact form ajax for Formspree
 const form = document.getElementById('enquiry');
 if (form){
   form.addEventListener('submit', async (e)=>{
     e.preventDefault();
     const status = document.getElementById('status');
     status.textContent = 'Sending…';
+    const data = new FormData(form);
     try {
-      const data = new FormData(form);
-      const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }});
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
       if (res.ok){
         status.textContent = 'Thanks. We will respond shortly.';
         form.reset();
       } else {
-        status.textContent = 'Failed to submit. Try again later.';
+        const body = await res.json().catch(()=>({}));
+        status.textContent = body?.errors ? body.errors.map(e=>e.message).join(', ') : 'Failed to submit. Check form endpoint.';
       }
-    } catch(e){
-      status.textContent = 'Network error. Try again.';
+    } catch(err){
+      status.textContent = 'Network error. Check your connection.';
     }
   });
 }
