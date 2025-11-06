@@ -1,1 +1,47 @@
-const y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();const menu=document.getElementById('menu');const nav=document.querySelector('.nav');if(menu&&nav){menu.addEventListener('click',()=>{const e='flex'===nav.style.display;nav.style.display=e?'none':'flex'})}if(nav){const e=nav.querySelector('.underline'),t=nav.querySelectorAll('a:not(.cta)'),n=t=>{const n=t.getBoundingClientRect();e.style.width=n.width+'px',e.style.left=t.offsetLeft+'px'};t.forEach(e=>{e.addEventListener('mouseenter',()=>n(e))}),nav.addEventListener('mouseleave',()=>{e.style.width='0'})}const obs=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('in'),obs.unobserve(e.target))})},{threshold:.15});document.querySelectorAll('.reveal').forEach(e=>obs.observe(e));const form=document.getElementById('enquiry');form&&form.addEventListener('submit',async e=>{e.preventDefault();const t=document.getElementById('status');t.textContent='Sending…';try{const n=new FormData(form),a=await fetch(form.action,{method:'POST',body:n,headers:{Accept:'application/json'}});a.ok?(t.textContent='Thanks. We will respond shortly.',form.reset()):t.textContent='Failed to submit. Try again later.'}catch(e){t.textContent='Network error. Try again.'}});
+// year
+const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+// mobile menu
+const menu = document.getElementById('menu');
+const nav = document.querySelector('.nav');
+if (menu && nav){
+  menu.addEventListener('click', ()=>{
+    const open = nav.style.display === 'flex';
+    nav.style.display = open ? 'none' : 'flex';
+  });
+}
+
+// underline follow for nav
+if (nav){
+  const underline = nav.querySelector('.underline');
+  const links = nav.querySelectorAll('a:not(.cta)');
+  const move = (el)=>{
+    const r = el.getBoundingClientRect();
+    underline.style.width = r.width + 'px';
+    underline.style.left = (el.offsetLeft) + 'px';
+  };
+  links.forEach(a=>a.addEventListener('mouseenter', ()=>move(a)));
+  nav.addEventListener('mouseleave', ()=>{ underline.style.width='0'; });
+}
+
+// contact form ajax
+const form = document.getElementById('enquiry');
+if (form){
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const status = document.getElementById('status');
+    status.textContent = 'Sending…';
+    try {
+      const data = new FormData(form);
+      const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }});
+      if (res.ok){
+        status.textContent = 'Thanks. We will respond shortly.';
+        form.reset();
+      } else {
+        status.textContent = 'Failed to submit. Try again later.';
+      }
+    } catch(e){
+      status.textContent = 'Network error. Try again.';
+    }
+  });
+}
